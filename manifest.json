@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "TogglClient",
+  "short_name": "TogglClient",
+  "description": "",
+  "version": "0.0.1",
+  "minimum_chrome_version": "38",
+
+  "icons": {
+    "16": "assets/icon_16.png",
+    "128": "assets/icon_128.png"
+  },
+
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+
+  "permissions": [
+    "storage",
+    "cookies",
+    "https://togglwrapper.herokuapp.com/",
+    "http://localhost:8080/~rodrigo/toggl-client/"
+  ]
+}

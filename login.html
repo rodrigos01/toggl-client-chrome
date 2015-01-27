@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>TogglClient</title>
+
+  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+
+  <link rel="import" href="bower_components/font-roboto/roboto.html">
+  <link rel="import" href="bower_components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="bower_components/paper-toast/paper-toast.html">
+  <link rel="import" href="bower_components/core-input/core-input.html">
+  <link rel="import" href="bower_components/paper-input/paper-input.html">
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body unresolved>
+
+  <core-toolbar>
+    Toggl Client
+  </core-toolbar>
+
+  <section id="login" is="auto-binding">
+    <template id="loginTemplate" is="auto-binding">
+      <paper-input-decorator label="E-Mail" id="emailDecorator" error="E-Mail is required!">
+        <input is="core-input" id="email" required>
+      </paper-input-decorator>
+      <paper-input-decorator label="Password" id="passwordDecorator" error="Password is required!">
+        <input is="core-input" id="password"  required>
+      </paper-input-decorator>
+      <paper-button raised id='loginAction' on-click="{{login}}">Login</paper-button>
+    </template>
+  </section>
+
+
+
+  <script src="main.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
