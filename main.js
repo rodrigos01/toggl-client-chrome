@@ -1,18 +1,29 @@
 function call(url, callback) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://togglwrapper.herokuapp.com/"+url, true, email, password);
-  // xhr.open("GET", "http://localhost:8080/~rodrigo/toggl-client/me", true, email, password);
-  // xhr.setRequestHeader("Authorization", "Basic " + btoa(email + ":" + password));
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4) {
-      // innerText does not let the attacker inject HTML elements.
-      document.getElementById("resp").innerText = xhr.responseText;
-      var resp = {
-        "data": JSON.parse(xhr.responseText),
-        "status": xhr.status
+  chrome.storage.sync.get('apiToken', function(data) {
+    var token = data.apiToken;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://togglwrapper.herokuapp.com/"+url, true, token, "api_token");
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
+        var resp = {
+          "data": JSON.parse(xhr.responseText),
+          "status": xhr.status
+        }
+        callback(resp);
       }
-      callback(resp);
     }
-  }
-  xhr.send();
+    xhr.send();
+  });
+}
+
+function populateEntries() {
+  call("time_entries", function(res) {
+    for(entry in res.data) {
+      var div = document.createElement("paper-shadow");
+      div.setAttribute("z", 3);
+      div.setAttribute("animated", "true");
+      div.innerHTML = res.data[entry].description;
+      document.querySelector("#entries").appendChild(div);
+    }
+  });
 }
